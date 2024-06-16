@@ -14,7 +14,10 @@ import { Playlist } from './playlists/entities/playlist.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ArtistsModule } from './artists/artists.module';
-import { dataSourceOptions } from 'db/data-source';
+import { typeOrmAsyncConfig } from 'db/data-source';
+import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -31,12 +34,18 @@ const proConfig = { port: 4000 };
     //   entities: [Song, Artist, User, Playlist],
     //   synchronize: true,
     // }),
-    TypeOrmModule.forRoot(dataSourceOptions),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development', '.env.production'],
+      isGlobal: true,
+      load: [configuration]
+    }),
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     SongsModule,
     PlaylistsModule,
     AuthModule,
     UsersModule,
-    ArtistsModule
+    ArtistsModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: [
