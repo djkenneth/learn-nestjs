@@ -10,11 +10,11 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     ): Promise<TypeOrmModuleOptions> => {
         return {
             type: "postgres",
-            host: configService.get<string>("dbHost"),
-            port: configService.get<number>("dbPort"),
-            username: configService.get<string>("username"),
-            database: configService.get<string>("dbName"),
-            password: configService.get<string>("password"),
+            host: "localhost",
+            port: 5432,
+            username: 'postgres',
+            database: 'spotify-clone-db',
+            password: 'admin',
             entities: ["dist/**/*.entity.js"],
             synchronize: false,
             migrations: ["dist/db/migrations/*.js"],
