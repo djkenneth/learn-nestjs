@@ -9,14 +9,22 @@ import { PayloadType } from './payload.type';
 import { Enable2FAType } from './auth-types';
 import * as speakeasy from 'speakeasy';
 import { UpdateResult } from 'typeorm';
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
     constructor(
         private userService: UsersService,
         private jwtService: JwtService,
-        private artistService: ArtistsService
+        private artistService: ArtistsService,
+        private configService: ConfigService
     ) { }
+
+    getEnvVariables() {
+        return {
+            port: this.configService.get<number>("port"),
+        };
+    }
 
     async login(loginDTO: LoginDTO): Promise<{ accessToken: string } | { validate2FA: string; message: string }> {
         const user = await this.userService.findOne(loginDTO); // 1.

@@ -19,23 +19,13 @@ import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 
-const devConfig = { port: 3000 };
-const proConfig = { port: 4000 };
+// const devConfig = { port: 3000 };
+// const proConfig = { port: 4000 };
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'localhost',
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'admin',
-    //   database: 'spotify-clone-db',
-    //   entities: [Song, Artist, User, Playlist],
-    //   synchronize: true,
-    // }),
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
+      envFilePath: ['.development.env', '.production.env'],
       isGlobal: true,
       load: [configuration]
     }),
@@ -49,13 +39,13 @@ const proConfig = { port: 4000 };
   ],
   controllers: [AppController],
   providers: [
-    AppService,
-    {
-      provide: 'CONFIG',
-      useFactory: () => {
-        return process.env.NODE_ENV === 'development' ? devConfig : proConfig;
-      }
-    }
+    AppService
+    // {
+    //   provide: 'CONFIG',
+    //   useFactory: () => {
+    //     return process.env.NODE_ENV === 'development' ? devConfig : proConfig;
+    //   }
+    // }
   ],
 })
 export class AppModule implements NestModule {
