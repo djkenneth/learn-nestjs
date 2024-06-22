@@ -7,8 +7,10 @@ import { Song } from './entities/song.entity';
 import { UpdateResult } from 'typeorm';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { JwtArtistGuard } from 'src/auth/jwt-artist.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('songs')
+@ApiTags("songs")
 export class SongsController {
   constructor(
     private readonly songsService: SongsService,
