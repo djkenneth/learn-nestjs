@@ -25,7 +25,8 @@ import configuration from './config/configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.development.env', '.production.env'],
+      // envFilePath: ['.development.env', '.production.env'],
+      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}`],
       isGlobal: true,
       load: [configuration]
     }),
@@ -48,13 +49,16 @@ import configuration from './config/configuration';
     // }
   ],
 })
-export class AppModule implements NestModule {
-  constructor(private dataSource: DataSource) {
-    console.log('DBName', dataSource.driver.database)
-  }
-  configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(LoggerMiddleware).forRoutes('songs') // Option #1
-    // consumer.apply(LoggerMiddleware).forRoutes({ path: 'songs', method: RequestMethod.POST }) // Option #2
-    consumer.apply(LoggerMiddleware).forRoutes(SongsController) // Option #3
-  }
-}
+
+export class AppModule { }
+
+// export class AppModule implements NestModule {
+//   constructor(private dataSource: DataSource) {
+//     console.log('DBName', dataSource.driver.database)
+//   }
+//   configure(consumer: MiddlewareConsumer) {
+//     // consumer.apply(LoggerMiddleware).forRoutes('songs') // Option #1
+//     // consumer.apply(LoggerMiddleware).forRoutes({ path: 'songs', method: RequestMethod.POST }) // Option #2
+//     consumer.apply(LoggerMiddleware).forRoutes(SongsController) // Option #3
+//   }
+// }

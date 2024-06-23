@@ -1,5 +1,6 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from "@nestjs/typeorm";
+import 'dotenv/config';
 import { Artist } from "src/artists/entities/artist.entity";
 import { Playlist } from "src/playlists/entities/playlist.entity";
 import { Song } from "src/songs/entities/song.entity";
@@ -16,7 +17,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
             type: "postgres",
             host: process.env.DB_HOST,
             port: parseInt(process.env.DB_PORT),
-            username: 'postgres',
+            username: process.env.USERNAME,
             database: process.env.DB_NAME,
             password: process.env.PASSWORD,
             // host: configService.get<string>("dbHost"),
