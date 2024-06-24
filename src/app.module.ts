@@ -17,6 +17,7 @@ import { ArtistsModule } from './artists/artists.module';
 import { typeOrmAsyncConfig } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
+import { EventsModule } from './events/events.module';
 import configuration from './config/configuration';
 
 // const devConfig = { port: 3000 };
@@ -36,7 +37,8 @@ import configuration from './config/configuration';
     AuthModule,
     UsersModule,
     ArtistsModule,
-    SeedModule
+    SeedModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [
