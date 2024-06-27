@@ -17,7 +17,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
             type: "postgres",
             host: process.env.DB_HOST,
             port: parseInt(process.env.DB_PORT),
-            username: process.env.USERNAME,
+            username: "postgres",
             database: process.env.DB_NAME,
             password: process.env.PASSWORD,
             // host: configService.get<string>("dbHost"),
