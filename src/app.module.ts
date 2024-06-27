@@ -19,6 +19,8 @@ import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventsModule } from './events/events.module';
 import configuration from './config/configuration';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TaskService } from './task/task.service';
 
 // const devConfig = { port: 3000 };
 // const proConfig = { port: 4000 };
@@ -32,6 +34,7 @@ import configuration from './config/configuration';
       load: [configuration]
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    ScheduleModule.forRoot(),
     SongsModule,
     PlaylistsModule,
     AuthModule,
@@ -42,7 +45,8 @@ import configuration from './config/configuration';
   ],
   controllers: [AppController],
   providers: [
-    AppService
+    AppService,
+    TaskService
     // {
     //   provide: 'CONFIG',
     //   useFactory: () => {
